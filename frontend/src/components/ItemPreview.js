@@ -19,6 +19,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const ItemPreview = (props) => {
   const item = props.item;
+  const isVerified = item.seller.isVerified;
 
   const handleClick = (ev) => {
     ev.preventDefault();
@@ -28,6 +29,19 @@ const ItemPreview = (props) => {
       props.favorite(item.slug);
     }
   };
+
+  const TopSellerView = () => {
+    return(
+      <div className="d-flex">
+        <img 
+          src="verified_seller.svg" 
+          alt=""
+          className="verified-seller"
+        /> 
+        <span className="mx-2">TOP SELLER</span>
+      </div>
+    )
+  }
 
   return (
     <div
@@ -54,13 +68,7 @@ const ItemPreview = (props) => {
               className="user-pic rounded-circle pr-1"
             />
           </Link>
-          <div className="d-flex">
-            <img 
-              src="verified_seller.svg" 
-              className="verified-seller"
-            /> 
-            <span className="mx-2">TOP SELLER</span>
-          </div>
+          {isVerified ?<TopSellerView /> : null}
           <button className="btn btn-outline-secondary" onClick={handleClick}>
             <i className="ion-heart"></i> {item.favoritesCount}
           </button>
